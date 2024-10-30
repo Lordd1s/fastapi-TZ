@@ -20,7 +20,7 @@ class OrderStatus(enum.Enum):
 class Order(Base):
     date_created: Mapped[datetime] = mapped_column(default=func.now())
     status: Mapped['OrderStatus'] = mapped_column(default=OrderStatus.IN_PROCESS)
-    order_item: Mapped[list['OrderItem']] = relationship(
+    order_items: Mapped[list['OrderItem']] = relationship(
         back_populates='order'
     )
 
@@ -34,8 +34,8 @@ class OrderItem(Base):
     )
     quantity: Mapped[int] = mapped_column(default=1)
     order: Mapped['Order'] = relationship(
-        back_populates='orderitems'
+        back_populates='order_items'
     )
     product: Mapped['Product'] = relationship(
-        back_populates='orderitems'
+        back_populates='order_items'
     )
