@@ -11,15 +11,15 @@ if TYPE_CHECKING:
     from app.models import Product
 
 
-class OrderStatus(enum.Enum):
-    IN_PROCESS = 'IN PROCESS', 'В ПРОЦЕССЕ'
-    SHIPPED = 'SHIPPED', 'ОТПРАВЛЕН'
-    DELIVED = 'DELIVED', 'ДОСТАВЛЕН'
+class OrderStatus(str, enum.Enum):
+    IN_PROCESS = 'IN PROCESS'
+    SHIPPED = 'SHIPPED'
+    DELIVERED = 'DELIVED'
 
 
 class Order(Base):
     date_created: Mapped[datetime] = mapped_column(default=func.now())
-    status: Mapped['OrderStatus'] = mapped_column(default=OrderStatus.IN_PROCESS)
+    status: Mapped[str] = mapped_column(default=OrderStatus.IN_PROCESS.value)
     order_items: Mapped[list['OrderItem']] = relationship(
         back_populates='order'
     )
