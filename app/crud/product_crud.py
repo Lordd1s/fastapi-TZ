@@ -3,7 +3,7 @@ from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models import Product
-from app.schemas import ProductCreate, ProductRead, ProductUpdate, ProductUpdatePartial
+from app.schemas import ProductCreate, ProductUpdate, ProductUpdatePartial
 
 async def get_products(session: AsyncSession) -> list[Product]:
     stmt = select(Product).order_by(Product.id)
