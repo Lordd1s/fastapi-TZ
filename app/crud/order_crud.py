@@ -1,12 +1,11 @@
-from fastapi import HTTPException, status
 
 from sqlalchemy import select
-from sqlalchemy.orm import joinedload, selectinload
+from sqlalchemy.orm import selectinload
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models import Order, OrderItem, OrderStatus, Product
-from app.schemas import OrderCreate, OrderStatusUpdate, ProductCreate
+from app.models import Order, OrderItem
+from app.schemas import OrderCreate, OrderStatusUpdate
 from app.services.product_services import product_by_id
 from app.services.order_services import order_by_id
 

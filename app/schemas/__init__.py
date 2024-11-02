@@ -10,5 +10,16 @@ __all__ = (
     'ProductUpdatePartial'
 )
 
-from app.schemas.order_schemas import *
-from app.schemas.product_schemas import *
+from app.schemas.order_schemas import (
+    OrderItemRead,
+    OrderRead,
+    OrderStatusUpdate,
+    OrderCreate,
+    OrderItemCreate
+)
+from app.schemas.product_schemas import (
+    ProductCreate,
+    ProductUpdate,
+    ProductRead,
+    ProductUpdatePartial
+)

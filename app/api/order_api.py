@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database.session import db_manager
-from app.models import Order, OrderItem
+from app.models import Order
 from app.crud import order_crud
 from app.schemas import OrderRead, OrderCreate, OrderStatusUpdate
 from app.services.order_services import order_by_id
