@@ -7,14 +7,14 @@ from app.models import OrderStatus
 
 
 class OrderBase(BaseModel):
-    status: OrderStatus = OrderStatus.IN_PROCESS
+    status: OrderStatus
 
 
 class OrderCreate(OrderBase):
-    pass
+    product_id: int
+    quantity: int = 1
 
-
-class OrderUpdate(OrderCreate):
+class OrderStatusUpdate(OrderBase):
     pass
 
 
@@ -36,3 +36,4 @@ class OrderItemCreate(OrderItemBase):
 
 class OrderItemRead(OrderItemBase):
     id: int
+    model_config = ConfigDict(from_attributes=True)

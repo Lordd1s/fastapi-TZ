@@ -1,6 +1,7 @@
 __all__ = (
     'OrderItemRead',
     'OrderRead',
+    'OrderStatusUpdate',
     'OrderCreate',
     'OrderItemCreate',
     'ProductCreate',
@@ -9,5 +10,5 @@ __all__ = (
     'ProductUpdatePartial'
 )
 
-from app.schemas.order_schemas import OrderCreate, OrderItemCreate, OrderRead, OrderItemRead
-from app.schemas.product_schemas import ProductRead, ProductUpdate, ProductUpdatePartial, ProductCreate
+from app.schemas.order_schemas import *
+from app.schemas.product_schemas import *
