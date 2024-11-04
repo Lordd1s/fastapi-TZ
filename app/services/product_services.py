@@ -21,3 +21,27 @@ async def product_by_id(
         status_code=status.HTTP_404_NOT_FOUND,
         detail=f"Product id: {product_id} not found!",
     )
+
+
+async def is_enough_product(
+        product_id: Annotated[int, Path],
+        quantity: int,
+        session: AsyncSession
+) -> bool:
+    product_ = await product_by_id(product_id, session=session)
+    return product_.quantity >= quantity
+
+
+async def update_quantity(
+        product_id: Annotated[int, Path],
+        quantity: int,
+        session: AsyncSession
+) -> Product:
+    product_ = await product_by_id(product_id, session=session)
+    product_.quantity -= quantity
+
+    session.add(product_)
+    await session.commit()
+    await session.refresh(product_)
+
+    return product_

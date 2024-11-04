@@ -1,4 +1,3 @@
-
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 from sqlalchemy.engine import Result
@@ -6,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models import Order, OrderItem
 from app.schemas import OrderCreate, OrderStatusUpdate
-from app.services.product_services import product_by_id
+from app.services.product_services import product_by_id, is_enough_product, update_quantity
 from app.services.order_services import order_by_id
 
 
