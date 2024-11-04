@@ -22,7 +22,7 @@ async def get_order(
     return order
 
 
-@router.post('/', response_model=OrderRead, description='Создание заказа')
+@router.post('/', response_model=OrderRead, description='Создание заказа', status_code=status.HTTP_201_CREATED)
 async def create_order(order_in: OrderCreate, db: AsyncSession = Depends(db_manager.scoped_session_dependency)):
     return await order_crud.create_order(session=db, order_in=order_in)
 
