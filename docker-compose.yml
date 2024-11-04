@@ -1,0 +1,51 @@
+services:
+  db:
+    container_name: DB
+    hostname: db
+    restart: always
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=${PAYMENT_PG_USER}
+      - POSTGRES_DB=${PAYMENT_PG_NAME}
+      - POSTGRES_PASSWORD=${PAYMENT_PG_PASSWORD}
+    ports:
+      - "${PAYMENT_PG_LOCAL_PORT}:${PAYMENT_PG_PORT}"
+    command: postgres -c port='${PAYMENT_PG_PORT}'
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${PAYMENT_PG_USER} -d ${PAYMENT_PG_NAME}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  web:
+    container_name: web_fastapi
+    hostname: fastapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      POSTGRES_DB: ${PAYMENT_PG_NAME}
+      PAYMENT_PG_LOCAL_PORT: ${PAYMENT_PG_LOCAL_PORT}
+      PAYMENT_PG_PORT: ${PAYMENT_PG_LOCAL_PORT}
+      POSTGRES_USER: ${PAYMENT_PG_USER}
+      POSTGRES_PASSWORD: ${PAYMENT_PG_PASSWORD}
+    command: >
+      sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
+
