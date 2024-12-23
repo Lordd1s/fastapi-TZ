@@ -9,3 +9,6 @@ PAYMENT_PG_NAME=fastapi-TZ-products
 PAYMENT_PG_PASSWORD=12345
 PAYMENT_PG_PORT=5432
 PAYMENT_PG_LOCAL_PORT=5432
+
+
+Simple FastAPI app with alembic + asynchronus postgresql
